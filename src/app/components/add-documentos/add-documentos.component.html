@@ -1,0 +1,41 @@
+<form #myForm="ngForm">
+
+    <div style="width: 400px; margin: auto;">
+        <div class="submit-form">
+            <div *ngIf="!submitted">
+
+
+
+                <div class="form-group">
+                    <label for="nombre">NOMBRE DE DOCUMENTO</label>
+                    <input type="text" class="form-control" id="nombre" [(ngModel)]="documento.nombre" name="nombre"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo">TIPO</label>
+                    <input type="text" class="form-control" id="tipo" [(ngModel)]="documento.tipo" name="tipo"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="cantidad">CANTIDAD</label>
+                    <input type="number" class="form-control" id="cantidad" [(ngModel)]="documento.cantidad"
+                        name="cantidad" required />
+                </div>
+
+
+                <hr>
+                <button (click)="saveDocumento()" class="btn btn-success">Guardar</button>
+            </div>
+            <div *ngIf="submitted">
+                <h4>Gracias tu documento fue creado registrado</h4>
+                <button class="btn btn-success" (click)="newDocumento()">Agregar otro documento</button>
+            </div>
+
+            <div><a href="#">VOLVER AL INICIO</a></div>
+
+        </div>
+    </div>
+    {{msgError}}
+</form>

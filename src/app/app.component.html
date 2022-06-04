@@ -1,0 +1,43 @@
+<div >
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="/logout" class="navbar-brand">Conflicto Colombiano</a>
+    <div class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a routerLink="login" class="nav-link">Iniciar Sesion</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="login" class="nav-link">Registrase</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="addpersona" class="nav-link">Agregar Persona</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="listpersonas" class="nav-link">Lista de personas</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="departamentos" class="nav-link">Lista de Departamentos</a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="documentos" class="nav-link">Documentos agregados</a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="adddocumentos" class="nav-link">Agregar Documentos</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="usuario" class="nav-link">Usuarios</a>
+      </li>
+
+      <li class="nav-item">
+    </div>
+    <li class="nav-item">
+      <a *ngIf="isLoggedIn" class="nav-link" href="/logout" (click)=handleLogout()>Logout</a>
+    </li>
+  </nav>
+ 
+  <div class="container mt-3">
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

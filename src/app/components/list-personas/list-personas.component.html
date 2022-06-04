@@ -1,0 +1,154 @@
+<div >
+    <div class="card">
+        <h3 class="text-center">Personas Registradas</h3>
+        <div class="card-body">
+            <div class="form-group form-inline">
+                Busque una persona por su nombre:
+                <input class="form-control ml-4" type="text" name="searchTerm" [(ngModel)]="searchTerm"
+                    (input)="search($event.target.value)" />
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <th>ID</th>
+                    <th>DOCUMENTO DE IDENTIFICACION</th>
+                    <th>NOMBRES</th>
+                    <th>APELLIDOS</th>
+                    <th>CELULAR</th>
+                    <th>CORREO</th>
+                    <th>DIRECCION</th>
+                    <th>NIVLE DE RIESGO</th>
+                    <th></th>
+                    
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of personaSet | listFilter: searchTerm ; let i = index ">
+                        <td>{{item.idp}}</td>
+                        <td>{{item.cedula}}</td>
+                        <td>{{item.nombres}}</td>
+                        <td>{{item.apellidos}}</td>
+                        <td>{{item.celular}}</td>
+                        <td>{{item.correo}}</td>
+                        <td>{{item.direccion}}</td>
+                        <td>{{item.nivelderiesgo}}</td>
+                        <td>
+                            <button class="btn btn-info btn-sm" (click)="triggerModal(modalData, item)">
+                                Editar </button>
+                            &nbsp;
+
+                        </td>
+                        <td>
+                            <button class='btn btn-danger btn-sm' (click)="deletePersona(item.idp)">
+                                Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #modalData let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Modificar Informacion Personal</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div style="width: 400px; margin: auto;">
+            <div class="submit-form">
+                <div class="form-group">
+                    <label for="idp">ID</label>
+                    <input disabled type="text" class="form-control" id="idp" required [(ngModel)]="currentPersona.idp"
+                        name="idp" />
+                </div>
+                <div class="form-group">
+                    <label for="cedula">CEDULA</label>
+                    <input type="text" class="form-control" id="cedula" required [(ngModel)]="currentPersona.cedula"
+                        name="cedula" />
+                </div>
+                <div class="form-group">
+                    <label for="nombres">NOMBRES</label>
+                    <input type="text" class="form-control" id="nombres" required [(ngModel)]="currentPersona.nombres"
+                        name="nombres" />
+                </div>
+                <div class="form-group">
+                    <label for="apellidos">APELLIDOS</label>
+                    <input type="text" class="form-control" id="apellidos" required
+                        [(ngModel)]="currentPersona.apellidos" name="apellidos" />
+                </div>
+                <div class="form-group">
+                    <label for="celular">CELULAR</label>
+                    <input type="text" class="form-control" id="celular" required [(ngModel)]="currentPersona.celular"
+                        name="celular" />
+                </div>
+                <div class="form-group">
+                    <label for="direccion">DIRECCION</label>
+                    <input type="text" class="form-control" id="direccion" required
+                        [(ngModel)]="currentPersona.direccion" name="direccion" />
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">CORREO</label>
+                    <input type="text" class="form-control" id="correo" required [(ngModel)]="currentPersona.correo"
+                        name="correo" />
+                </div>
+
+                <div class="form-group">
+                    <label for="nivelderiesgo">NIVEL DE RIESGO</label>
+                    <input type="text" class="form-control" id="nivelderiesgo" required [(ngModel)]="currentPersona.nivelderiesgo"
+                        name="nivelderiesgo" />
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="updatePersona()"
+            (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-3">
+        <h4>Lista de Personas</h4>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let personaId of personaSet; let i = index"
+                [class.active]="i == currentIndex" (click)="setActivePersona(personaId, i)">
+                <div class="col">{{ personaId.nombres }}</div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<div class="card-text">
+    <form #f="ngForm" class="form-inline">
+        <div class="form-group">
+            <label for="idp">ID:</label>
+            <input [(ngModel)]="idPersona" id="nombres" name="nombres" class="form-control ml-2 mr-2">
+        </div>
+        <button (click)="retrievePersona(idPersona)" [disabled]="!f?.valid" class="btn btn-primary">Buscar
+            datos</button>
+    </form>
+    <div class="col-md-6">
+        <div *ngIf="currentPersona">
+            <div>
+                <label><strong>ID:</strong></label> {{ currentPersona.idp }}
+                <label><strong>NOMBRES:</strong></label> {{ currentPersona.nombres }}
+                <label><strong>APELLIDOS:</strong></label> {{ currentPersona.apellidos }}
+                <label><strong>DIRECCION:</strong></label> {{ currentPersona.celular }}
+                <label><strong>CELULAR:</strong></label> {{ currentPersona.direccion }}
+                <label><strong>CORREO:</strong></label> {{ currentPersona.correo }}
+            </div>
+        </div>
+        <label><strong></strong></label> {{ msgError }}
+    </div>
+</div>

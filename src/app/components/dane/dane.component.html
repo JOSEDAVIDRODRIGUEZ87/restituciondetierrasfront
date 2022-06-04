@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="card">
+    <h3 class="text-center">Lista de Departamentos en Riesgo </h3>
+    <div class="card-body">
+      <div class="form-group form-inline">
+        Search dane by name:
+        <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
+          (input)="search($event.target.value)" />
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <th>ID</th>
+          <th>CODIGO DEPARTAMENTO</th>
+          <th>DEPARTAMENTO</th>
+          <th>CODIGO MUNICIPIO</th>
+          <th>MUNICIPIO</th>
+          <th>REGION</th>
+          <th></th>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of daneSet | listFilter2: searchTerm ; let i = index ">
+            <td>{{item.idd}}</td>
+            <td>{{item.coddanedep}}</td>
+            <td>{{item.departamento}}</td>
+            <td>{{item.codddanemun}}</td>
+            <td>{{item.municipio}}</td>
+            <td>{{item.region}}</td>
+            <td>
+              <button class="btn btn-info btn-sm" (click)="triggerModal(modalData, item)">
+                Editar </button>
+              &nbsp;
+            </td>
+            <td>
+
+              <button class='btn btn-danger btn-sm' (click)="deleteDane(item.idd)">
+                Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+
+<ng-template #modalData let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Dane</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div style="width: 400px; margin: auto;">
+      <div class="submit-form">
+        <div class="form-group">
+          <label for="idd">IDD</label>
+          <input disabled type="text" class="form-control" id="idd" required [(ngModel)]="currentDane.idd" name="idd" />
+        </div>
+        <div class="form-group">
+          <label for="coddanedep">CODIGO DEP</label>
+          <input type="text" class="form-control" id="coddanedep" required [(ngModel)]="currentDane.coddanedep"
+            name="coddanedep" />
+        </div>
+        <div class="form-group">
+          <label for="departamentos">DEPARTAMENTO</label>
+          <input type="text" class="form-control" id="author" required [(ngModel)]="currentDane.departamentos"
+            name="departamentos" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="updateDane()"
+      (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<hr>
+
+<div class="row">
+  <div class="col-md-3">
+    <h4>Danes List</h4>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let daneId of daneSet; let i = index" [class.active]="i == currentIndex"
+        (click)="setActiveDane(daneId, i)">
+        <div class="col">{{ daneId.name }}</div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<hr>
